@@ -1,0 +1,24 @@
+- name: install mysql dependencies
+  apt: pkg={{ item }}
+  with_items:
+    - mysql-client
+    - libmysql-ruby
+    - libmysqlclient-dev
+    - python-mysqldb
+- name: install mysql
+  apt: pkg=mysql-server
+
+- name: set mysql root password
+  shell: mysqladmin -u root password {{ mysql_root_password }}
+    && touch mysqlrootpassword creates=mysqlrootpassword
+- name: copy .my.cnf file with root password credentials
+  template: src=templates/my.cnf.j2 dest=~/.my.cnf
+  
+- name: update all root accounts
+  mysql_user: name=root 
+    host={{ item }} password={{ mysql_root_password }}
+  with_items:
+    - '{{ ansible_hostname }}'
+    - 127.0.0.1
+    - ::1
+    - localhost

@@ -1,0 +1,9 @@
+- name: create production mysql db
+  mysql_db: name={{ production_db_name}} state=present
+- name: create production mysql db
+  mysql_db: name={{ staging_db_name}} state=present
+- name: create mysql user
+  mysql_user: name={{ mysql_user }} priv={{ production_db_name}}.*:ALL 
+    password={{ mysql_user_password }}
+- name: add staging priveleges
+  mysql_user: name={{ mysql_user }} priv={{ staging_db_name}}.*:ALL append_privs=yes

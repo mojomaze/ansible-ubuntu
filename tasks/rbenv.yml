@@ -1,0 +1,5 @@
+- name: clone rbenv
+  git: repo=https://github.com/sstephenson/rbenv.git dest=~/.rbenv update=no
+  notify: update .profile
+- name: clone ruby-build
+  git: repo=https://github.com/sstephenson/ruby-build.git dest=~/.rbenv/plugins/ruby-build update=no

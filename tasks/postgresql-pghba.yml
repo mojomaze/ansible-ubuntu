@@ -1,0 +1,22 @@
+- name: trust pg_hba.conf
+  lineinfile: 
+    dest: /etc/postgresql/9.3/main/pg_hba.conf
+    regexp: '^local\s+all\s+postgres+\s+peer'
+    line: "local   all             postgres                                trust"
+    state: present
+  lineinfile: 
+    dest: /etc/postgresql/9.3/main/pg_hba.conf
+    regexp: '^local\s+all\s+all+\s+peer'
+    line: "local   all             all                                     trust"
+    state: present
+  lineinfile: 
+    dest: /etc/postgresql/9.3/main/pg_hba.conf
+    regexp: '^host\s+all\s+all+\s+127\.0\.0\.1/32\s+md5'
+    line: "host    all             all             127.0.0.1/32            trust"
+    state: present
+  lineinfile: 
+    dest: /etc/postgresql/9.3/main/pg_hba.conf
+    regexp: '^host\s+all\s+all+\s+::1/128\s+md5'
+    line: "host    all             all             ::1/128                 trust"
+    state: present
+  notify: restart postgresql

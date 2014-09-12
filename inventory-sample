@@ -1,0 +1,17 @@
+[servers]
+x.x.x.x
+
+[all:vars]
+ansible_ssh_user=sudouser
+deployment_public_key=~/.ssh/id_rsa.pub
+deploy_user=user
+
+# openssl passwd -salt salted -1 plaintext
+deploy_user_password=somesecurepassword
+
+postgres_root_password=somesecurepassword
+postgres_db_name=dbname
+postgres_user=dbuser
+postgres_user_password=somesecurepassword
+
+ruby_version=2.1.2

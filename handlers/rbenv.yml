@@ -1,0 +1,10 @@
+- name: update .profile
+  lineinfile:
+    dest: ~/.profile
+    line: '{{item.line}}'
+    regexp: '{{item.regexp}}'
+  with_items:
+    - line: export PATH="$HOME/.rbenv/bin:$PATH"
+      regexp: PATH.*rbenv
+    - line: eval "$(rbenv init -)"
+      regexp: rbenv.*init

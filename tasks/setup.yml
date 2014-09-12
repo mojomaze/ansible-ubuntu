@@ -1,0 +1,18 @@
+- name: apt-update
+  shell: apt-get update
+- name: add deploy user
+  user: name={{ deploy_user }} shell=/bin/bash password={{ deploy_user_password }}
+- name: add deploy to sudoers
+  shell: sudo adduser {{ deploy_user }} sudo
+- name: install packages
+  apt: update_cache=true
+  apt: pkg={{ item }}
+  with_items:
+    - curl
+    - build-essential
+    - libpq-dev
+    - libreadline-dev
+    - python-psycopg2
+    - git-core
+    - python-pycurl
+    - libcurl4-openssl-dev

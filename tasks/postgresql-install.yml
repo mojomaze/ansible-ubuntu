@@ -1,0 +1,8 @@
+- name: install postgres
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main' state=present
+- name: Add postgres repository key
+  apt_key: url=http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc state=present
+- name: Install postgresql
+  apt: pkg=postgresql-9.3 state=present force=yes
+- name: Install postgres contrib for cube and earthdistance extensions
+  apt: pkg=postgresql-contrib-9.3 state=present force=yes

@@ -1,0 +1,5 @@
+- apt: pkg=ufw
+- command: ufw allow 22
+- command: ufw allow 80
+- command: ufw allow 443
+- command: ufw --force enable

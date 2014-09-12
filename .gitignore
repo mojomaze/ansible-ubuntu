@@ -1,0 +1,7 @@
+/*
+!.gitignore
+!tasks/
+!handlers/
+!templates/
+!playbook-sample.yml
+!inventory-sample

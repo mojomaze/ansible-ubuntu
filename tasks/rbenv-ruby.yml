@@ -1,0 +1,9 @@
+- name: install ruby
+  shell: sudo -i -u deploy rbenv install {{ ruby_version }}
+    creates=/home/deploy/.rbenv/versions/{{ ruby_version }}
+- name: finalize install
+  shell: sudo -u deploy -i {{ item }}
+  with_items:
+    - rbenv global {{ ruby_version }}
+    - gem install bundler
+    - rbenv rehash

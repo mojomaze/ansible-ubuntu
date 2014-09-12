@@ -1,0 +1,3 @@
+- file: path=~/.ssh state=directory
+- name: set up deployment key 
+  copy: src={{ deployment_public_key }} dest=~/.ssh/authorized_keys mode=600

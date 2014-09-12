@@ -1,0 +1,7 @@
+- name: set postgres root password
+  postgresql_user: name=postgres password={{ postgres_root_password }}
+- name: create postgres user
+  postgresql_user: name={{ postgres_user }} role_attr_flags=SUPERUSER 
+    password={{ postgres_user_password }}
+- name: create postgres db
+  postgresql_db: name={{ postgres_db_name }} owner={{ postgres_user }}

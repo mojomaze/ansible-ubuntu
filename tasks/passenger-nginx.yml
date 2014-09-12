@@ -1,0 +1,25 @@
+- name: install passenger PGP key
+  command: apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
+
+- name: add HTTPS support for apt
+  apt: pkg=apt-transport-https
+
+- name: add passenger apt source
+  copy:
+    content: deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main
+    dest: /etc/apt/sources.list.d/passenger.list
+    mode: 644
+- apt: update_cache=yes
+- apt: pkg=nginx-extras
+- apt: pkg=passenger
+
+- name: enable passenger
+  lineinfile:
+    dest: /etc/nginx/nginx.conf
+    line: passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
+    regexp: ^passenger_root
+    insertafter: '#\s+passenger_root'
+  notify: restart nginx
+
+- name: disable default site
+  file: path=/etc/nginx/sites-enabled/default state=absent

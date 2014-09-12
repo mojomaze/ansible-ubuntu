@@ -1,0 +1,55 @@
+- hosts: all
+  sudo: yes
+  tasks:
+    - include: tasks/setup.yml
+    - include: tasks/postgresql-install.yml
+    - include: tasks/postgresql-pghba.yml
+    - include: tasks/postgresql-db.yml
+  handlers:
+    - include: handlers/postgresql.yml
+    
+- hosts: all
+  sudo: yes
+  sudo_user: "{{ deploy_user }}"
+  tasks:
+    - include: tasks/ssh.yml
+
+- hosts: all
+  sudo: yes
+  tasks:
+    - include: tasks/ufw.yml
+  
+- hosts: all
+  sudo: yes
+  sudo_user: "{{ deploy_user }}"
+  tasks:
+    - include: tasks/rbenv.yml
+  handlers:
+    - include: handlers/rbenv.yml
+          
+- hosts: all
+  sudo: yes
+  tasks:
+    - include: tasks/rbenv-ruby.yml
+    
+- hosts: all
+  sudo: yes
+  tasks:
+    - include: tasks/sidekiq.yml
+  handlers:
+    - include: handlers/sidekiq.yml
+        
+- hosts: all
+  sudo: yes
+  tasks:
+    - include: tasks/passenger-nginx.yml
+  handlers:
+    - include: handlers/nginx.yml
+    
+- hosts: all
+  sudo: yes
+  tasks:
+    - include: tasks/memcached.yml
+  handlers:
+    - include: handlers/memcached.yml
+    
