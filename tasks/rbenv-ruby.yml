@@ -1,8 +1,8 @@
 - name: install ruby
-  shell: sudo -i -u deploy rbenv install {{ ruby_version }}
-    creates=/home/deploy/.rbenv/versions/{{ ruby_version }}
+  shell: sudo -i -u {{ deploy_user }} rbenv install {{ ruby_version }}
+    creates=/home/{{ deploy_user }}/.rbenv/versions/{{ ruby_version }}
 - name: finalize install
-  shell: sudo -u deploy -i {{ item }}
+  shell: sudo -u {{ deploy_user }} -i {{ item }}
   with_items:
     - rbenv global {{ ruby_version }}
     - gem install bundler
